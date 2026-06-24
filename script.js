@@ -12,9 +12,10 @@
 
 function boardGame(player1, player2) {
 
-    function createPlayer(name) {
+    function createPlayer(name, simbol) {
         let points = 0;
 
+        const getName = () => simbol;
         const getName = () => name;
         const getWins = () => points;
         const giveWins = () => {
@@ -42,6 +43,7 @@ function boardGame(player1, player2) {
 
     while (i < 9){
         let currentPlayer = i % 2 === 0 ? "X" : "O";
+
         console.log(gameBoard);
         const getCurrentPlayer = () => currentPlayer;
 
