@@ -1,13 +1,13 @@
 (function controlFlow() {
     const name1 = prompt("Player 1 name: ");
-    const player1 = createPlayer(name1);
+    const player1 = createPlayer(name1, "X");
     console.log(`${name1} is ready`);
 
     const name2 = prompt("Player 2 name: ");
-    const player2 = createPlayer(name2);
+    const player2 = createPlayer(name2, "O");
     console.log(`${name2} is ready`);
 
-    boardGame();
+    boardGame(player1, player2);
 })();
 
 function boardGame(player1, player2) {
@@ -15,7 +15,7 @@ function boardGame(player1, player2) {
     function createPlayer(name, simbol) {
         let points = 0;
 
-        const getName = () => simbol;
+        const getSimbol = () => simbol;
         const getName = () => name;
         const getWins = () => points;
         const giveWins = () => {
@@ -26,6 +26,7 @@ function boardGame(player1, player2) {
     };
 
     console.log("The board is 3x3");
+    console.log(`${player1.getName()}: ${player1.getWins()} X ${player2.getName()}: ${player2.getWins()}`);
 
     const gameBoard = () => ["", "", "", "", "", "", "", "", ""];
 
@@ -40,7 +41,6 @@ function boardGame(player1, player2) {
 
     let turn = 0;
     let i = 0;
-
     while (i < 9){
         let currentPlayer = i % 2 === 0 ? "X" : "O";
 
@@ -54,9 +54,19 @@ function boardGame(player1, player2) {
             gameBoard[positionBoard] = currentPlayer;
             console.log(gameBoard);
 
-            winner = checkWinner(gameBoard);
+            let winner = checkWinner(gameBoard);
+            let winnerPlayer, playerLost;
+
             if (winner) {
-                alert("Congratulations you won");
+                if (winner === "X"){
+                    player1.giveWins();
+                    winnerPlayer = player1;
+                } else {
+                    player2.giveWins();
+                    playerLost = player2;
+                };
+
+                alert(`Congratulations, ${winnerPlayer} WON!`);
                 (function clearBoard(){
                     for (let indice = 0; indice < gameBoard.length; indice++){
                         gameBoard[cell] === "";
