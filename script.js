@@ -95,4 +95,10 @@ function boardGame(player1, player2) {
         x++;
     }
 
+    if (player1.getWins() === 3){
+        alert(`Player 1 WON with ${player1.getWins()} x ${player2.getWins()}`);
+    } else {
+        alert(`Player 2 WON with ${player2.getWins()} x ${player1.getWins()}`);
+    }
+
 })();
