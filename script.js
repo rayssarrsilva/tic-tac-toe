@@ -8,7 +8,7 @@ function createPlayer(name, simbol) {
         points++;
     };
 
-    return {getWins, giveWins, getName};
+    return {getWins, giveWins, getName, getSimbol};
 };
 
 function boardGame(player1, player2) {
@@ -65,7 +65,6 @@ function boardGame(player1, player2) {
                 alert("Empass");
                 break;
             }
-
             i++;
         } else {
             alert("This position is already occupied");
