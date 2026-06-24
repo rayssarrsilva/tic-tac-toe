@@ -32,7 +32,7 @@ function boardGame() {
 
     while (i < 9){
         let currentPlayer = i % 2 === 0 ? "X" : "O";
-
+        console.log(gameBoard);
         const getCurrentPlayer = () => currentPlayer;
 
         let player = prompt(`ROUND ${i+1} Player ${currentPlayer}: Inform the position (1-9) `);
@@ -40,6 +40,7 @@ function boardGame() {
         
         if (gameBoard[positionBoard] === ""){
             gameBoard[positionBoard] = currentPlayer;
+            console.log(gameBoard);
 
             winner = checkWinner(gameBoard);
             if (winner) {
