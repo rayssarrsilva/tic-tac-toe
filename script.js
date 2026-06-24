@@ -60,8 +60,10 @@ function boardGame(player1, player2) {
                         gameBoard[indice] = "";
                     }
                 })();
+                break;
             } else if (!winner && i === 8){
                 alert("Empass");
+                break;
             }
 
             i++;
