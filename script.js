@@ -1,23 +1,32 @@
-function createPlayer(name) {
-    let points = 0;
-
-    const getName = () => name;
-    const getWins = () => points;
-    const giveWins = () => {
-        points++;
-    };
-
-    return {getWins, giveWins, name};
-}
-
 (function controlFlow() {
-    
+    const name1 = prompt("Player 1 name: ");
+    const player1 = createPlayer(name1);
+    console.log(`${name1} is ready`);
+
+    const name2 = prompt("Player 2 name: ");
+    const player2 = createPlayer(name2);
+    console.log(`${name2} is ready`);
+
+    boardGame();
 })();
 
-function boardGame() {
+function boardGame(player1, player2) {
+
+    function createPlayer(name) {
+        let points = 0;
+
+        const getName = () => name;
+        const getWins = () => points;
+        const giveWins = () => {
+            points++;
+        };
+
+        return {getWins, giveWins, getName};
+    };
+
     console.log("The board is 3x3");
 
-    let gameBoard = ["", "", "", "", "", "", "", "", ""];
+    const gameBoard = () => ["", "", "", "", "", "", "", "", ""];
 
     const winPattern = [
         [0, 1, 2],
@@ -71,5 +80,3 @@ function boardGame() {
 
     return {getCurrentPlayer};
 };
-
-boardGame();
