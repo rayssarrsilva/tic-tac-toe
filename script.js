@@ -25,35 +25,38 @@ function boardGame() {
         [0, 4, 8], [2, 4, 6]
     ];
 
-    let i = 0;
     console.log("The board is 3x3");
 
-    while (i <= 8){
-        let position1 = prompt("Player 1: Inform the Line and Column. Example: 1 3");
-        let position2 = prompt("Player 2: Inform the Line and Column. Example: 1 3");
+    let turn = 0;
+    let i = 0;
 
-        let [line, col] = position1.split(" ").map(Number);
-        let [line1, col1] = position2.split(" ").map(Number);
+    while (i < 9){
+        let currentPlayer = i % 2 === 0 ? "X" : "O";
+        if (currentPlayer % 2 === 0){
+            
+        }
 
-        line = line -1;
-        col = col - 1;
-        line1 -= 1;
-        col1 = col1 - 1;
-
-        if (gameBoard[line][col] === ""){
-            gameBoard[line][col] = "X";
-            console.log(gameBoard);
+        let player = prompt(`ROUND ${i+1} Player ${currentPlayer}: Inform the position (1-9) `);
+        let positionBoard = Number(player) - 1;
+        
+        if (gameBoard[positionBoard] === ""){
+            gameBoard[positionBoard] = currentPlayer;
 
             winner = checkWinner(gameBoard);
             if (winner) {
-                alert(`${winner} venceu`);
-            } else if (!winner && gameBoard.every(cell => cell !== "")){
+                alert("Congratulations you won");
+                (function clearBoard(){
+                    for (let indice = 0; indice < gameBoard.length; indice++){
+                        gameBoard[cell] === "";
+                    }
+                })();
+            } else if (!winner && i === 8){
                 alert("Empass");
             }
 
-            i++
+            i++;
         } else {
-            alert("This position is marked, choose again");
+            alert("This position is already occupied");
         }
     };
 
@@ -64,7 +67,6 @@ function boardGame() {
             }
         }
     };
-
 };
 
 boardGame();
