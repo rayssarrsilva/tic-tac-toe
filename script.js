@@ -32,9 +32,8 @@ function boardGame() {
 
     while (i < 9){
         let currentPlayer = i % 2 === 0 ? "X" : "O";
-        if (currentPlayer % 2 === 0){
-            
-        }
+
+        const getCurrentPlayer = () => currentPlayer;
 
         let player = prompt(`ROUND ${i+1} Player ${currentPlayer}: Inform the position (1-9) `);
         let positionBoard = Number(player) - 1;
@@ -67,6 +66,8 @@ function boardGame() {
             }
         }
     };
+
+    return {getCurrentPlayer};
 };
 
 boardGame();
