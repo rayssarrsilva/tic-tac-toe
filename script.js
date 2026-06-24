@@ -9,16 +9,12 @@ function createPlayer(name) {
     return {getWins, giveWins, name};
 }
 
-function controlFlow() {
-
-};
+(function controlFlow() {
+    
+})();
 
 function boardGame() {
-    let gameBoard = [
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""]
-    ];
+    let gameBoard = ["", "", "", "", "", "", "", "", ""];
 
     const winPattern = [
         [0, 1, 2],
@@ -41,7 +37,7 @@ function boardGame() {
 
         line = line -1;
         col = col - 1;
-        line1 = line - 1;
+        line1 -= 1;
         col1 = col1 - 1;
 
         if (gameBoard[line][col] === ""){
