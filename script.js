@@ -1,6 +1,7 @@
 function createPlayer(name) {
     let points = 0;
 
+    const getName = () => name;
     const getWins = () => points;
     const giveWins = () => {
         points++;
@@ -14,6 +15,8 @@ function createPlayer(name) {
 })();
 
 function boardGame() {
+    console.log("The board is 3x3");
+
     let gameBoard = ["", "", "", "", "", "", "", "", ""];
 
     const winPattern = [
@@ -24,8 +27,6 @@ function boardGame() {
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
         [0, 4, 8], [2, 4, 6]
     ];
-
-    console.log("The board is 3x3");
 
     let turn = 0;
     let i = 0;
