@@ -12,10 +12,6 @@ function createPlayer(name, simbol) {
 };
 
 function boardGame(player1, player2) {
-
-    console.log("The board is 3x3");
-    console.log(`${player1.getName()}: ${player1.getWins()} X ${player2.getName()}: ${player2.getWins()}`);
-
     const gameBoard = ["", "", "", "", "", "", "", "", ""];
 
     const winPattern = [
@@ -29,6 +25,8 @@ function boardGame(player1, player2) {
 
     let turn = 0;
     let i = 0;
+
+    alert(`${player1.getName()}: ${player1.getWins()} X ${player2.getName()}: ${player2.getWins()}`);
     while (i < 9){
         let currentPlayer = i % 2 === 0 ? "X" : "O";
 
@@ -36,6 +34,7 @@ function boardGame(player1, player2) {
         const getCurrentPlayer = () => currentPlayer;
 
         let player = prompt(`ROUND ${i+1} Player ${currentPlayer}: Inform the position (1-9) `);
+
         let positionBoard = Number(player) - 1;
         
         if (gameBoard[positionBoard] === ""){
@@ -89,5 +88,10 @@ function boardGame(player1, player2) {
     const player2 = createPlayer(name2, "O");
     console.log(`${name2} is ready`);
 
-    boardGame(player1, player2);
+    let x = 1;
+    while (x < 4){
+        boardGame(player1, player2);
+        x++;
+    }
+
 })();
