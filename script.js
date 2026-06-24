@@ -1,34 +1,22 @@
-(function controlFlow() {
-    const name1 = prompt("Player 1 name: ");
-    const player1 = createPlayer(name1, "X");
-    console.log(`${name1} is ready`);
+function createPlayer(name, simbol) {
+    let points = 0;
 
-    const name2 = prompt("Player 2 name: ");
-    const player2 = createPlayer(name2, "O");
-    console.log(`${name2} is ready`);
+    const getSimbol = () => simbol;
+    const getName = () => name;
+    const getWins = () => points;
+    const giveWins = () => {
+        points++;
+    };
 
-    boardGame(player1, player2);
-})();
+    return {getWins, giveWins, getName};
+};
 
 function boardGame(player1, player2) {
-
-    function createPlayer(name, simbol) {
-        let points = 0;
-
-        const getSimbol = () => simbol;
-        const getName = () => name;
-        const getWins = () => points;
-        const giveWins = () => {
-            points++;
-        };
-
-        return {getWins, giveWins, getName};
-    };
 
     console.log("The board is 3x3");
     console.log(`${player1.getName()}: ${player1.getWins()} X ${player2.getName()}: ${player2.getWins()}`);
 
-    const gameBoard = () => ["", "", "", "", "", "", "", "", ""];
+    const gameBoard = ["", "", "", "", "", "", "", "", ""];
 
     const winPattern = [
         [0, 1, 2],
@@ -55,21 +43,22 @@ function boardGame(player1, player2) {
             console.log(gameBoard);
 
             let winner = checkWinner(gameBoard);
-            let winnerPlayer, playerLost;
+            let winnerPlayer;
 
             if (winner) {
                 if (winner === "X"){
                     player1.giveWins();
                     winnerPlayer = player1;
-                } else {
+                } else if (winner === "O"){
                     player2.giveWins();
-                    playerLost = player2;
+                    winnerPlayer = player2;
                 };
 
-                alert(`Congratulations, ${winnerPlayer} WON!`);
+                alert(`Congratulations, ${winnerPlayer.getName()} WON!`);
+
                 (function clearBoard(){
                     for (let indice = 0; indice < gameBoard.length; indice++){
-                        gameBoard[cell] === "";
+                        gameBoard[indice] = "";
                     }
                 })();
             } else if (!winner && i === 8){
@@ -89,6 +78,16 @@ function boardGame(player1, player2) {
             }
         }
     };
-
-    return {getCurrentPlayer};
 };
+
+(function controlFlow() {
+    const name1 = prompt("Player 1 name: ");
+    const player1 = createPlayer(name1, "X");
+    console.log(`${name1} is ready`);
+
+    const name2 = prompt("Player 2 name: ");
+    const player2 = createPlayer(name2, "O");
+    console.log(`${name2} is ready`);
+
+    boardGame(player1, player2);
+})();
