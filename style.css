@@ -57,5 +57,15 @@ input[type="text"]:only-of-type {
     height: 25px;
     border-radius: 6px;
     box-shadow: 0 4px 4px black;
-    border: none;
+    border: var(--blue);
+    font-family: var(--main-font);
+    letter-spacing: 25%;
+    font-weight: bold;
+}
+
+input[type="text"]:only-of-type:focus {
+    border-color: var(--blue);      
+    box-shadow: 0 0 8px; 
+    text-shadow: 0 4px 9px black; 
+    outline: none;
 }
