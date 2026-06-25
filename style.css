@@ -4,3 +4,7 @@ body {
     --won: #1E1E1E;
     --mark-font: "Edu NSW ACT Foundation", cursive;
 }
+
+#principal-border span {
+    color: var(--blue);
+}
