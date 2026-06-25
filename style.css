@@ -8,3 +8,11 @@ body {
 #principal-border span {
     color: var(--blue);
 }
+
+#border-left div h3 {
+    color: white;
+}
+
+#border-left div span {
+    color: black;
+}
