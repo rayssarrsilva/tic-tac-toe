@@ -13,8 +13,21 @@ body {
     color: var(--blue);
 }
 
-#border-left div h3 {
+
+#top-border-left h3, #bottom-border-left h3 {
     color: white;
+    font-size: 34px;
+    letter-spacing: 25%;
+    font-weight: bold;
+    font-family: var(--main-font);
+}
+
+#middle-border-left h3 {
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 25%;
+    font-family: var(--main-font);
 }
 
 #border-left div span {
