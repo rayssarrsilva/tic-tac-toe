@@ -16,3 +16,8 @@ body {
 #border-left div span {
     color: black;
 }
+
+#middle-bottom-icons svg {
+    width: 17px;
+    height: 17px;
+}
