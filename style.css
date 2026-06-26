@@ -99,6 +99,7 @@ input[type="text"]:only-of-type:focus {
     align-items: center;
     width: 100%;
     justify-content: space-between;
+    padding-right: 120px;
 }
 
 body {
