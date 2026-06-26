@@ -95,6 +95,10 @@ input[type="text"]:only-of-type:focus {
 #principal-border {
     display: flex;
     flex-direction: column;
+    justify-content: center;   
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
 }
 
 body {
