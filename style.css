@@ -84,6 +84,10 @@ input[type="text"]:only-of-type:focus {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding-bottom: 50px;
-    padding-top: 30px;
+}
+
+#top-border-left, #bottom-border-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
