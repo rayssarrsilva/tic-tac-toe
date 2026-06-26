@@ -36,8 +36,8 @@ body {
 }
 
 #middle-bottom-icons svg {
-    width: 23px;
-    height: 23px;
+    width: 30px;
+    height: 30px;
 }
 
 #principal-border h1 {
@@ -103,4 +103,16 @@ input[type="text"]:only-of-type:focus {
 
 body {
     display: flex;
+}
+
+#middle-bottom {
+    display: flex;
+    align-items: flex-end;
+    gap: 50px;
+}
+
+#middle-bottom-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
