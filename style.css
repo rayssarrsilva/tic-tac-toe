@@ -98,7 +98,7 @@ input[type="text"]:only-of-type:focus {
     justify-content: center;   
     align-items: center;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 body {
@@ -115,4 +115,8 @@ body {
     display: flex;
     gap: 15px;
     align-items: center;
+}
+
+#principal-border h1 {
+    padding-top: 130px;
 }
