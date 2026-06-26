@@ -91,3 +91,8 @@ input[type="text"]:only-of-type:focus {
     flex-direction: column;
     gap: 10px;
 }
+
+#principal-border {
+    display: flex;
+    flex-direction: column;
+}
