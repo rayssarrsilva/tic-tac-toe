@@ -80,6 +80,7 @@ function boardGame(player1, player2) {
     };
 };
 
+/**
 (function controlFlow() {
     const name1 = prompt("Player 1 name: ");
     const player1 = createPlayer(name1, "X");
@@ -102,7 +103,7 @@ function boardGame(player1, player2) {
     }
 
 })();
-
+ */
 
 // Song effects
 const activeSong = document.getElementById("song");
@@ -111,7 +112,15 @@ const cells = document.querySelectorAll(".cell");
 
 let soundOn = false;
 
-activeSong.addEventListener("click", (event) => {
-    soundOn = true;
+activeSong.addEventListener("click", () => {
+    soundOn = !soundOn;
 });
 
+cells.forEach(cell => {
+    cell.addEventListener("click", () => {
+        if (soundOn) {
+            clickSound.currentTime = 0;
+            clickSound.play();
+        }
+    });
+});

@@ -144,3 +144,6 @@ svg:active, #start:active {
     transform: translateY(2px);
 }
 
+#song {
+    cursor: pointer;
+}
