@@ -124,3 +124,32 @@ cells.forEach(cell => {
         }
     });
 });
+
+
+const userInput = document.getElementById("userInput");
+const startSound = document.getElementById("startSound");
+const start = document.getElementById("start");
+const user1 = document.getElementById("player1");
+const user2 = document.getElementById("player2");
+
+user1.addEventListener("click", () => {
+    if (soundOn) {
+        userInput.currentTime = 0;
+        userInput.play();
+    }
+})
+
+user2.addEventListener("click", () => {
+    if (soundOn) {
+        userInput.currentTime = 0;
+        userInput.play();
+    }
+})
+
+start.addEventListener("click", () => {
+    if (soundOn) {
+        startSound.currentTime = 0;
+        startSound.play();
+    }
+})
+
