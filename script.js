@@ -153,3 +153,14 @@ start.addEventListener("click", () => {
     }
 })
 
+const inputs = document.querySelectorAll("#player1, #player2");
+const keySound = document.getElementById("key");
+
+inputs.forEach(input => {
+    input.addEventListener("keydown", () => {
+        if (soundOn) {
+            keySound.currentTime = 0;
+            keySound.play();
+        }
+    });
+})
