@@ -1,3 +1,4 @@
+// Console version 1.0
 function createPlayer(name, simbol) {
     let points = 0;
 
@@ -171,3 +172,16 @@ const restart = document.getElementById("restart");
 restart.addEventListener("click", () => {
     location.reload();
 });
+
+// UI version 2.0
+let turn = "X";
+
+cells.forEach(cell => {
+    cell.addEventListener("click", () => {
+        if (cell.textContent === "") {
+            cell.textContent = turn;
+            cell.classList.add(turn);
+            turn = turn === "X" ? "O" : "X";
+        }
+    })
+})
