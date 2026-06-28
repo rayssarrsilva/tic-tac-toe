@@ -102,3 +102,16 @@ function boardGame(player1, player2) {
     }
 
 })();
+
+
+// Song effects
+const activeSong = document.getElementById("song");
+const clickSound = document.getElementById("audioEffect");
+const cells = document.querySelectorAll(".cell");
+
+let soundOn = false;
+
+activeSong.addEventListener("click", (event) => {
+    soundOn = true;
+});
+
