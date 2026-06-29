@@ -81,31 +81,6 @@ function boardGame(player1, player2) {
     };
 };
 
-/**
-(function controlFlow() {
-    const name1 = prompt("Player 1 name: ");
-    const player1 = createPlayer(name1, "X");
-    console.log(`${name1} is ready`);
-
-    const name2 = prompt("Player 2 name: ");
-    const player2 = createPlayer(name2, "O");
-    console.log(`${name2} is ready`);
-
-    let x = 1;
-    while (x < 4){
-        boardGame(player1, player2);
-        x++;
-    }
-
-    if (player1.getWins() === 3){
-        alert(`Player 1 WON with ${player1.getWins()} x ${player2.getWins()}`);
-    } else {
-        alert(`Player 2 WON with ${player2.getWins()} x ${player1.getWins()}`);
-    }
-
-})();
- */
-
 // Song effects
 const activeSong = document.getElementById("song");
 const clickSound = document.getElementById("audioEffect");
@@ -184,4 +159,18 @@ cells.forEach(cell => {
             turn = turn === "X" ? "O" : "X";
         }
     })
+})
+
+// user input + start logic
+start.addEventListener("click", () => {
+    if (user1.value && user2.value){
+        const playerName1 = user1.value;
+        const playerName2 = user2.value;
+
+        const play1 = createPlayer(playerName1, "X");
+        const play2 = createPlayer(playerName2, "O");
+
+        user1.value = "";
+        user2.value = "";
+    }
 })
