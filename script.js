@@ -150,17 +150,7 @@ restart.addEventListener("click", () => {
 
 // UI version 2.0
 let turn = "X";
-
-cells.forEach(cell => {
-    cell.addEventListener("click", () => {
-        if (cell.textContent === "") {
-            cell.textContent = turn;
-            cell.classList.add(turn);
-            turn = turn === "X" ? "O" : "X";
-        }
-    })
-})
-
+let players = false;
 // user input + start logic
 start.addEventListener("click", () => {
     if (user1.value && user2.value){
@@ -169,8 +159,24 @@ start.addEventListener("click", () => {
 
         const play1 = createPlayer(playerName1, "X");
         const play2 = createPlayer(playerName2, "O");
+        players = true;
+
+        if (players){
+                cells.forEach(cell => {
+                cell.addEventListener("click", () => {
+                    if (cell.textContent === "") {
+                        cell.textContent = turn;
+                        cell.classList.add(turn);
+                        turn = turn === "X" ? "O" : "X";
+                    }
+                })
+            })
+        }
 
         user1.value = "";
         user2.value = "";
+    } else {
+        alert("Insert the users first")
     }
 })
+
