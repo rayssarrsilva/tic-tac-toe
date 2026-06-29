@@ -147,3 +147,11 @@ svg:active, #start:active {
 #song {
     cursor: pointer;
 }
+
+.X, .O {
+    font-family: var(--mark-font);
+    font-size: 9em;
+    font-weight: bold;
+    text-align: center;
+}
+
