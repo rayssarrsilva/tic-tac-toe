@@ -13,7 +13,6 @@ body {
     color: var(--blue);
 }
 
-
 #top-border-left h3, #bottom-border-left h3 {
     color: white;
     font-size: 34px;
@@ -160,3 +159,9 @@ svg:active, #start:active {
     text-align: center;
 }
 
+.won {
+    color: #1E1E1E;
+    font-weight: bold;
+    letter-spacing: 20%;
+    
+}

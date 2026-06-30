@@ -12,6 +12,19 @@ function createPlayer(name, simbol) {
     return {getWins, giveWins, getName, getSimbol};
 };
 
+const rate1 = document.getElementById("rate1");
+const rate2 = document.getElementById("rate2");
+const activeSong = document.getElementById("song");
+const clickSound = document.getElementById("audioEffect");
+const cells = document.querySelectorAll(".cell");
+
+const board = document.getElementById("board");
+const titleprincipal = document.getElementById("title-principal");
+const borderLeft = document.getElementById("border-left");
+
+const finalWinner = document.getElementById("finalWinner");
+const winer = document.getElementById("winer");
+
 function boardGame(player1, player2) {
     const gameBoard = ["", "", "", "", "", "", "", "", ""];
 
@@ -24,53 +37,73 @@ function boardGame(player1, player2) {
         [0, 4, 8], [2, 4, 6]
     ];
 
-    let turn = 0;
-    let i = 0;
+    let turn = "X";
 
-    alert(`${player1.getName()}: ${player1.getWins()} X ${player2.getName()}: ${player2.getWins()}`);
-    while (i < 9){
-        let currentPlayer = i % 2 === 0 ? "X" : "O";
+    cells.forEach((cell, index) => {
+        cell.addEventListener("click", () => {
 
-        console.log(gameBoard);
-        const getCurrentPlayer = () => currentPlayer;
+            if (cell.textContent === "") {
+                cell.textContent = turn;
+                cell.classList.add(turn);
+                turn = turn === "X" ? "O" : "X";
+                gameBoard[index] = cell.textContent;
 
-        let player = prompt(`ROUND ${i+1} Player ${currentPlayer}: Inform the position (1-9) `);
+                let winner = checkWinner(gameBoard);
+                if (winner) {
 
-        let positionBoard = Number(player) - 1;
-        
-        if (gameBoard[positionBoard] === ""){
-            gameBoard[positionBoard] = currentPlayer;
-            console.log(gameBoard);
+                    let winnerPlayer = winner === "X" ? player1 : player2;
+                    winnerPlayer.giveWins();
+                    rate1.textContent = player1.getWins();
+                    rate2.textContent = player2.getWins();
+                    setTimeout(() => {
+                        alert("CONGRATULATIONS");
+                        resetBoard();
+                    }, 0);
 
-            let winner = checkWinner(gameBoard);
-            let winnerPlayer;
 
-            if (winner) {
-                if (winner === "X"){
-                    player1.giveWins();
-                    winnerPlayer = player1;
-                } else if (winner === "O"){
-                    player2.giveWins();
-                    winnerPlayer = player2;
-                };
-
-                alert(`Congratulations, ${winnerPlayer.getName()} WON!`);
-
-                (function clearBoard(){
-                    for (let indice = 0; indice < gameBoard.length; indice++){
-                        gameBoard[indice] = "";
-                    }
-                })();
-                break;
-            } else if (!winner && i === 8){
-                alert("Empass");
-                break;
+                } else if (!winner && !gameBoard.includes("")) {
+                    alert("Empass");
+                    setTimeout(() => {
+                        resetBoard();
+                    }, 0);
+                }
             }
-            i++;
-        } else {
-            alert("This position is already occupied");
+        });
+    });
+    
+    if (winnerPlayer.getWins() === 3){
+        setTimeout(() => {
+            showWinner(winnerPlayer);
+        }, 0);
+    } else {
+        setTimeout(() => {
+            alert(`${winnerPlayer.getName()} venceu a rodada`);
+            resetBoard();
+        }, 0);
+    }
+
+    function showWinner(player) {
+        board.textContent = "";
+        titleprincipal.textContent = "";
+        borderLeft.textContent = "";
+
+        finalWinner.style.display = flex;
+        winer.className.add("won");
+        winer.textContent = `Player ${player.getName()} WON`;
+    }
+
+    function resetBoard(){
+        turn = "X";
+
+        for (let i = 0; i < gameBoard.length; i++){
+            gameBoard[i] = "";
         }
-    };
+
+        cells.forEach(cell => {
+            cell.textContent = "";
+            cell.classList.remove("X", "O");
+        })
+    }
 
     function checkWinner(gameBoard){
         for (let [a, b, c] of winPattern){
@@ -78,13 +111,11 @@ function boardGame(player1, player2) {
                 return gameBoard[c];
             }
         }
+        return null;
     };
 };
 
 // Song effects
-const activeSong = document.getElementById("song");
-const clickSound = document.getElementById("audioEffect");
-const cells = document.querySelectorAll(".cell");
 
 let soundOn = false;
 
@@ -148,10 +179,27 @@ restart.addEventListener("click", () => {
     location.reload();
 });
 
-// UI version 2.0
-let turn = "X";
-let players = false;
 // user input + start logic
+
+function game(){
+    let game = false;
+
+    const getGame = () => game;
+    const changeGame = () => game = true;
+
+    return {getGame, changeGame};
+}
+
+const gameOn = game();
+
+function Gamestarted(play1, play2) {
+
+    if (!gameOn.getGame()) {
+        boardGame(play1, play2);
+        gameOn.changeGame();
+    }
+}
+
 start.addEventListener("click", () => {
     if (user1.value && user2.value){
         const playerName1 = user1.value;
@@ -159,24 +207,12 @@ start.addEventListener("click", () => {
 
         const play1 = createPlayer(playerName1, "X");
         const play2 = createPlayer(playerName2, "O");
-        players = true;
 
-        if (players){
-                cells.forEach(cell => {
-                cell.addEventListener("click", () => {
-                    if (cell.textContent === "") {
-                        cell.textContent = turn;
-                        cell.classList.add(turn);
-                        turn = turn === "X" ? "O" : "X";
-                    }
-                })
-            })
-        }
-
+        Gamestarted(play1, play2);
+        
         user1.value = "";
         user2.value = "";
     } else {
         alert("Insert the users first")
     }
-})
-
+});
