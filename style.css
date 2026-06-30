@@ -163,5 +163,10 @@ svg:active, #start:active {
     color: #1E1E1E;
     font-weight: bold;
     letter-spacing: 20%;
-    
+    font-family: "Crimson Text", serif;
+}
+
+#finalWinner {
+    position: fixed;
+    inset: 0;
 }

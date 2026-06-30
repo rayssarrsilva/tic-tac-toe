@@ -52,14 +52,24 @@ function boardGame(player1, player2) {
                 if (winner) {
 
                     let winnerPlayer = winner === "X" ? player1 : player2;
+
                     winnerPlayer.giveWins();
                     rate1.textContent = player1.getWins();
                     rate2.textContent = player2.getWins();
                     setTimeout(() => {
-                        alert("CONGRATULATIONS");
                         resetBoard();
                     }, 0);
 
+                    if (winnerPlayer.getWins() === 3){
+                        setTimeout(() => {
+                            showWinner(winnerPlayer);
+                            return;
+                        }, 0);
+                    } else {
+                        setTimeout(() => {
+                            resetBoard();
+                        }, 0);
+                    }
 
                 } else if (!winner && !gameBoard.includes("")) {
                     alert("Empass");
@@ -71,24 +81,13 @@ function boardGame(player1, player2) {
         });
     });
     
-    if (winnerPlayer.getWins() === 3){
-        setTimeout(() => {
-            showWinner(winnerPlayer);
-        }, 0);
-    } else {
-        setTimeout(() => {
-            alert(`${winnerPlayer.getName()} venceu a rodada`);
-            resetBoard();
-        }, 0);
-    }
-
     function showWinner(player) {
         board.textContent = "";
         titleprincipal.textContent = "";
-        borderLeft.textContent = "";
+        borderLeft.classList.add("empty");       
 
-        finalWinner.style.display = flex;
-        winer.className.add("won");
+        finalWinner.style.display = "flex";
+        winer.classList.add("won");
         winer.textContent = `Player ${player.getName()} WON`;
     }
 
