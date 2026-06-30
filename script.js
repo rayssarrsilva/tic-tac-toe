@@ -1,5 +1,6 @@
 // Console version 1.0
-function createPlayer(name, simbol) {
+(() => {
+    function createPlayer(name, simbol) {
     let points = 0;
 
     const getSimbol = () => simbol;
@@ -10,208 +11,209 @@ function createPlayer(name, simbol) {
     };
 
     return {getWins, giveWins, getName, getSimbol};
-};
+    };
 
-const rate1 = document.getElementById("rate1");
-const rate2 = document.getElementById("rate2");
-const activeSong = document.getElementById("song");
-const clickSound = document.getElementById("audioEffect");
-const cells = document.querySelectorAll(".cell");
+    const rate1 = document.getElementById("rate1");
+    const rate2 = document.getElementById("rate2");
+    const activeSong = document.getElementById("song");
+    const clickSound = document.getElementById("audioEffect");
+    const cells = document.querySelectorAll(".cell");
 
-const board = document.getElementById("board");
-const titleprincipal = document.getElementById("title-principal");
-const borderLeft = document.getElementById("border-left");
+    const board = document.getElementById("board");
+    const titleprincipal = document.getElementById("title-principal");
+    const borderLeft = document.getElementById("border-left");
 
-const finalWinner = document.getElementById("finalWinner");
-const winer = document.getElementById("winer");
+    const finalWinner = document.getElementById("finalWinner");
+    const winer = document.getElementById("winer");
 
-function boardGame(player1, player2) {
-    const gameBoard = ["", "", "", "", "", "", "", "", ""];
+    function boardGame(player1, player2) {
+        const gameBoard = ["", "", "", "", "", "", "", "", ""];
 
-    const winPattern = [
-        [0, 1, 2],
-        [3, 4, 5], 
-        [6, 7, 8],
+        const winPattern = [
+            [0, 1, 2],
+            [3, 4, 5], 
+            [6, 7, 8],
 
-        [0, 3, 6], [1, 4, 7], [2, 5, 8],
-        [0, 4, 8], [2, 4, 6]
-    ];
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
 
-    let turn = "X";
+        let turn = "X";
 
-    cells.forEach((cell, index) => {
-        cell.addEventListener("click", () => {
+        cells.forEach((cell, index) => {
+            cell.addEventListener("click", () => {
 
-            if (cell.textContent === "") {
-                cell.textContent = turn;
-                cell.classList.add(turn);
-                turn = turn === "X" ? "O" : "X";
-                gameBoard[index] = cell.textContent;
+                if (cell.textContent === "") {
+                    cell.textContent = turn;
+                    cell.classList.add(turn);
+                    turn = turn === "X" ? "O" : "X";
+                    gameBoard[index] = cell.textContent;
 
-                let winner = checkWinner(gameBoard);
-                if (winner) {
+                    let winner = checkWinner(gameBoard);
+                    if (winner) {
 
-                    let winnerPlayer = winner === "X" ? player1 : player2;
+                        let winnerPlayer = winner === "X" ? player1 : player2;
 
-                    winnerPlayer.giveWins();
-                    rate1.textContent = player1.getWins();
-                    rate2.textContent = player2.getWins();
-                    setTimeout(() => {
-                        resetBoard();
-                    }, 0);
-
-                    if (winnerPlayer.getWins() === 3){
+                        winnerPlayer.giveWins();
+                        rate1.textContent = player1.getWins();
+                        rate2.textContent = player2.getWins();
                         setTimeout(() => {
-                            showWinner(winnerPlayer);
-                            return;
+                            resetBoard();
                         }, 0);
-                    } else {
+
+                        if (winnerPlayer.getWins() === 3){
+                            setTimeout(() => {
+                                showWinner(winnerPlayer);
+                                return;
+                            }, 0);
+                        } else {
+                            setTimeout(() => {
+                                resetBoard();
+                            }, 0);
+                        }
+
+                    } else if (!winner && !gameBoard.includes("")) {
+                        alert("Empass");
                         setTimeout(() => {
                             resetBoard();
                         }, 0);
                     }
-
-                } else if (!winner && !gameBoard.includes("")) {
-                    alert("Empass");
-                    setTimeout(() => {
-                        resetBoard();
-                    }, 0);
                 }
+            });
+        });
+        
+        function showWinner(player) {
+            board.textContent = "";
+            titleprincipal.textContent = "";
+            borderLeft.classList.add("empty");       
+
+            finalWinner.style.display = "flex";
+            winer.classList.add("won");
+            winer.textContent = `Player ${player.getName()} WON`;
+        }
+
+        function resetBoard(){
+            turn = "X";
+
+            for (let i = 0; i < gameBoard.length; i++){
+                gameBoard[i] = "";
+            }
+
+            cells.forEach(cell => {
+                cell.textContent = "";
+                cell.classList.remove("X", "O");
+            })
+        }
+
+        function checkWinner(gameBoard){
+            for (let [a, b, c] of winPattern){
+                if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]){
+                    return gameBoard[c];
+                }
+            }
+            return null;
+        };
+    };
+
+    // Song effects
+
+    let soundOn = false;
+
+    activeSong.addEventListener("click", () => {
+        soundOn = !soundOn;
+    });
+
+    cells.forEach(cell => {
+        cell.addEventListener("click", () => {
+            if (soundOn) {
+                clickSound.currentTime = 0;
+                clickSound.play();
             }
         });
     });
-    
-    function showWinner(player) {
-        board.textContent = "";
-        titleprincipal.textContent = "";
-        borderLeft.classList.add("empty");       
 
-        finalWinner.style.display = "flex";
-        winer.classList.add("won");
-        winer.textContent = `Player ${player.getName()} WON`;
-    }
 
-    function resetBoard(){
-        turn = "X";
+    const userInput = document.getElementById("userInput");
+    const startSound = document.getElementById("startSound");
+    const start = document.getElementById("start");
+    const user1 = document.getElementById("player1");
+    const user2 = document.getElementById("player2");
 
-        for (let i = 0; i < gameBoard.length; i++){
-            gameBoard[i] = "";
+    user1.addEventListener("click", () => {
+        if (soundOn) {
+            userInput.currentTime = 0;
+            userInput.play();
         }
+    });
 
-        cells.forEach(cell => {
-            cell.textContent = "";
-            cell.classList.remove("X", "O");
-        })
-    }
+    user2.addEventListener("click", () => {
+        if (soundOn) {
+            userInput.currentTime = 0;
+            userInput.play();
+        }
+    });
 
-    function checkWinner(gameBoard){
-        for (let [a, b, c] of winPattern){
-            if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]){
-                return gameBoard[c];
+    start.addEventListener("click", () => {
+        if (soundOn) {
+            startSound.currentTime = 0;
+            startSound.play();
+        }
+    });
+
+    const inputs = document.querySelectorAll("#player1, #player2");
+    const keySound = document.getElementById("key");
+
+    inputs.forEach(input => {
+        input.addEventListener("keydown", () => {
+            if (soundOn) {
+                keySound.currentTime = 0;
+                keySound.play();
             }
+        });
+    });
+
+    // restart the page icon
+
+    const restart = document.getElementById("restart");
+    restart.addEventListener("click", () => {
+        location.reload();
+    });
+
+    // user input + start logic
+
+    function game(){
+        let game = false;
+
+        const getGame = () => game;
+        const changeGame = () => game = true;
+
+        return {getGame, changeGame};
+    }
+
+    const gameOn = game();
+
+    function Gamestarted(play1, play2) {
+
+        if (!gameOn.getGame()) {
+            boardGame(play1, play2);
+            gameOn.changeGame();
         }
-        return null;
-    };
-};
+    }
 
-// Song effects
+    start.addEventListener("click", () => {
+        if (user1.value && user2.value){
+            const playerName1 = user1.value;
+            const playerName2 = user2.value;
 
-let soundOn = false;
+            const play1 = createPlayer(playerName1, "X");
+            const play2 = createPlayer(playerName2, "O");
 
-activeSong.addEventListener("click", () => {
-    soundOn = !soundOn;
-});
-
-cells.forEach(cell => {
-    cell.addEventListener("click", () => {
-        if (soundOn) {
-            clickSound.currentTime = 0;
-            clickSound.play();
+            Gamestarted(play1, play2);
+            
+            user1.value = "";
+            user2.value = "";
+        } else {
+            alert("Insert the users first")
         }
     });
-});
-
-
-const userInput = document.getElementById("userInput");
-const startSound = document.getElementById("startSound");
-const start = document.getElementById("start");
-const user1 = document.getElementById("player1");
-const user2 = document.getElementById("player2");
-
-user1.addEventListener("click", () => {
-    if (soundOn) {
-        userInput.currentTime = 0;
-        userInput.play();
-    }
-});
-
-user2.addEventListener("click", () => {
-    if (soundOn) {
-        userInput.currentTime = 0;
-        userInput.play();
-    }
-});
-
-start.addEventListener("click", () => {
-    if (soundOn) {
-        startSound.currentTime = 0;
-        startSound.play();
-    }
-});
-
-const inputs = document.querySelectorAll("#player1, #player2");
-const keySound = document.getElementById("key");
-
-inputs.forEach(input => {
-    input.addEventListener("keydown", () => {
-        if (soundOn) {
-            keySound.currentTime = 0;
-            keySound.play();
-        }
-    });
-});
-
-// restart the page icon
-
-const restart = document.getElementById("restart");
-restart.addEventListener("click", () => {
-    location.reload();
-});
-
-// user input + start logic
-
-function game(){
-    let game = false;
-
-    const getGame = () => game;
-    const changeGame = () => game = true;
-
-    return {getGame, changeGame};
-}
-
-const gameOn = game();
-
-function Gamestarted(play1, play2) {
-
-    if (!gameOn.getGame()) {
-        boardGame(play1, play2);
-        gameOn.changeGame();
-    }
-}
-
-start.addEventListener("click", () => {
-    if (user1.value && user2.value){
-        const playerName1 = user1.value;
-        const playerName2 = user2.value;
-
-        const play1 = createPlayer(playerName1, "X");
-        const play2 = createPlayer(playerName2, "O");
-
-        Gamestarted(play1, play2);
-        
-        user1.value = "";
-        user2.value = "";
-    } else {
-        alert("Insert the users first")
-    }
-});
+})();

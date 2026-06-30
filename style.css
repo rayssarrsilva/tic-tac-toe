@@ -164,9 +164,26 @@ svg:active, #start:active {
     font-weight: bold;
     letter-spacing: 20%;
     font-family: "Crimson Text", serif;
+    font-size: 6rem;
+    -webkit-text-stroke: 2px solid black;
+    padding-bottom: 40px;
+
+    width: 100%;
+    padding-left: 50vw;
 }
 
 #finalWinner {
     position: fixed;
     inset: 0;
+
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    background-color: var(--blue);
+}
+
+#border-left.empty {
+    display: none;
+    background-color: none;
 }
